@@ -7,13 +7,22 @@
 </head>
 <body>
     
+        
     {% extends "appProyecto/padre.html" %}
     {% load static %}
     {% block contenidoQueCambia %}
 
-    poner lista socios---------------------------
-    {% endblock %}
+    <form action="" method="POST">
+        {% csrf_token %}
 
+            {{ miFormulario.as_table }}
+        
+        <input type="submit" value="Enviar"> 
+
+    </form>
+
+
+    {% endblock %}
 
 </body>
 </html>

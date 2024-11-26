@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Actividades, Socios, Profesores
 from AppProyecto.forms import ActividadFormulario, SocioFormulario, ProfesorFormulario
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -76,8 +77,25 @@ def profesor_form(req):
 
     return render(req, "AppProyecto/profesores.html", {"miFormulario": miFormulario})
 
+def busquedaActividad(req):
+    return render(req, "AppProyecto/busquedaActividad.html")
 
+def buscar(req):
 
-# def socio_buscar(req):
-#     if req.GET('documento'):
-#         docum = req.GET('documento')
+    if req.GET["valor"]:
+
+        valor = req.GET['valor']
+
+        actividades = Actividades.objects.filter(valor__icontains=valor)
+
+        return render(req, "AppProyecto/resultadosBusqueda.html", {"actividades": actividades, "valor": valor})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse(respuesta)
+
+def lista_actividades(req):
+    actividades = Actividades.objects.all()
+    return render(req, 'appProyecto/actividades.html', {'actividades': actividades})

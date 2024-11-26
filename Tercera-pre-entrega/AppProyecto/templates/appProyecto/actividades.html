@@ -11,14 +11,27 @@
     {% load static %}
     {% block contenidoQueCambia %}
 
-    <form action="" method="POST">
-        {% csrf_token %}
+    {% block titulo %}Lista de Actividades{% endblock %}
 
-            {{ miFormulario.as_table }}
-        
-        <input type="submit" value="Enviar"> 
+<h2>Actividades</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for actividad in actividades %}
+        <tr>
+            <td>{{ actividad.nombre }}</td>
+            <td>{{ actividad.valor }}</td>
 
-    </form>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
     {% endblock %}
 

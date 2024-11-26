@@ -11,9 +11,18 @@
     {% load static %}
     {% block contenidoQueCambia %}
 
-    poner lista socios---------------------------
-    {% endblock %}
+    <p>Estamos buscando el: {{ valor }}</p>
 
+{% if actividades %}
+<ul>
+{% for actividad in actividades %}
+    <li>{{ actividad.nombre }}</li>
+    <li>{{ actividad.valor }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+    {% endblock %}
 
 </body>
 </html>

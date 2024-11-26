@@ -6,14 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    
+
     {% extends "appProyecto/padre.html" %}
     {% load static %}
     {% block contenidoQueCambia %}
 
-    poner lista socios---------------------------
+    <form action="/AppProyecto/buscar/" method="GET">
+        
+        <input type="number" name="valor" id="valor">
+        <input type="submit" value="Buscar">
+    
+    
+    
+    
+    </form>
+
     {% endblock %}
-
-
 </body>
 </html>
