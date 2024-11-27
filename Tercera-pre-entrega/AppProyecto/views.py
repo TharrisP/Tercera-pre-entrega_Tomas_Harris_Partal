@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Actividades, Socios, Profesores
 from AppProyecto.forms import ActividadFormulario, SocioFormulario, ProfesorFormulario
 from django.http import HttpResponse
+import time
 
 # Create your views here.
 
@@ -35,7 +36,7 @@ def actividad_form(req):
     else:
         miFormulario = ActividadFormulario()
 
-    return render(req, "AppProyecto/actividades.html", {"miFormulario": miFormulario})
+    return render(req, "AppProyecto/actividades_formulario.html", {"miFormulario": miFormulario})
 
 def socio_form(req):
     if req.method == "POST":
@@ -55,7 +56,7 @@ def socio_form(req):
     else:
         miFormulario = SocioFormulario()
 
-    return render(req, "AppProyecto/socios.html", {"miFormulario": miFormulario})
+    return render(req, "AppProyecto/socios_formulario.html", {"miFormulario": miFormulario})
 
 def profesor_form(req):
     if req.method == "POST":
@@ -75,27 +76,32 @@ def profesor_form(req):
     else:
         miFormulario = ProfesorFormulario()
 
-    return render(req, "AppProyecto/profesores.html", {"miFormulario": miFormulario})
+    return render(req, "AppProyecto/profesores_formulario.html", {"miFormulario": miFormulario})
 
-def busquedaActividad(req):
-    return render(req, "AppProyecto/busquedaActividad.html")
+def busquedaSocio(req):
+    return render(req, "AppProyecto/busquedaSocio.html")
 
 def buscar(req):
+    
+    if req.GET["documento"]:
 
-    if req.GET["valor"]:
+        documento = req.GET['documento']
 
-        valor = req.GET['valor']
+        socios = Socios.objects.filter(documento__icontains=documento)
 
-        actividades = Actividades.objects.filter(valor__icontains=valor)
-
-        return render(req, "AppProyecto/resultadosBusqueda.html", {"actividades": actividades, "valor": valor})
-
+        return render(req, "AppProyecto/resultadoBusqueda.html", {"socios": socios, "documento": documento})    
     else:
-
-        respuesta = "No enviaste datos"
-
-    return HttpResponse(respuesta)
+        respuesta=HttpResponse("No ingresaste datos")
+        return (respuesta) 
 
 def lista_actividades(req):
     actividades = Actividades.objects.all()
     return render(req, 'appProyecto/actividades.html', {'actividades': actividades})
+
+def lista_profesores(req):
+    profesores = Profesores.objects.all()
+    return render(req, 'appProyecto/profesores.html', {'profesores': profesores})
+
+def lista_socios(req):
+    socios = Socios.objects.all()
+    return render(req, 'appProyecto/socios.html', {'socios': socios})

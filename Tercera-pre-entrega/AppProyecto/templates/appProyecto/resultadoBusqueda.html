@@ -11,13 +11,17 @@
     {% load static %}
     {% block contenidoQueCambia %}
 
-    <p>Estamos buscando el: {{ valor }}</p>
+    <p>Estamos buscando el socio cuyo documento es: {{ documento }}</p>
 
-{% if actividades %}
+{% if socios %}
 <ul>
-{% for actividad in actividades %}
-    <li>{{ actividad.nombre }}</li>
-    <li>{{ actividad.valor }}</li>
+{% for socio in socios %}
+    <li>{{ socio.nombre }}</li>
+    <li>{{ socio.apellido }}</li>
+    <li>{{ socio.documento }}</li>
+    <li>{{ socio.email }}</li>
+    <li>{{ socio.actividad }}</li>
+
 {% endfor %}
 </ul>
 {% endif %}
